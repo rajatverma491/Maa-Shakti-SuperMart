@@ -1,0 +1,81 @@
+﻿@model KiranaMart.VIewModels.AllClassViewModel
+@{
+    ViewBag.Title = "ExchangeView";
+}
+
+
+
+
+
+
+<div style="margin-top: 5px; margin-bottom:15px">
+    <table class="table table-responsive table-hover table-striped">
+        <tr>
+            <th class="text-center">ProductName</th>
+            <th class="text-center">Brand</th>
+            <th class="text-center">Price</th>
+            <th class="text-center">Qty</th>
+            <th class="text-center"></th>
+        </tr>
+        @{
+            double totSum = 0;
+
+            foreach (var item in Model.SellingHistories)
+            {
+
+                foreach (var item1 in Model.Products)
+                {
+                    if (item.ProductId == item1.Id)
+                    {
+
+
+                <tr>
+                    <td class="text-center">@item1.ProductName</td>
+                    <td class="text-center">@item1.Brand</td>
+
+                  
+                    <td class="text-center">
+                        @{
+                            double sum = 0;
+                            //for (int i = 0; i < item.Quantity; i++)
+                            //{
+                            //    sum = sum + item1.Price;
+                            //}
+                            sum = item.Quantity * item.SellingPrice;
+                        }@sum
+                    </td>
+                    <td class="text-center">
+                        @Html.ActionLink("-", "RemItem", new { id = item.Id }, new { @class = "btn btn-succes" })
+                        @item.Quantity
+                        @item1.Unit
+                    </td>
+                  
+                    <td class="text-center">@Html.ActionLink("Remove", "RemoveTemp", new { id = item.Id }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure');" })</td>
+                </tr>
+
+                        totSum = totSum + sum;
+                        ViewBag.Value = totSum;
+                    }
+                }
+            }
+        }
+    </table>
+    <h3 style="font-weight:bold">Total=@totSum</h3>
+    @{
+        TempData["totalValue"] = totSum;
+    }
+</div>
+
+
+@Html.ActionLink("Confirm", "ConfirmBillExchange", new { id = Model.Billing.Id }, new { @class = "btn btn-success" })
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+            window.onload = function() {
+                alert("@ViewBag.Message");
+        };
+    </script>
+}
+
+

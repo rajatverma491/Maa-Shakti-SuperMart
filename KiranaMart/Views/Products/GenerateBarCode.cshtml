@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "GenerateBarCode";
+    Layout = null;
+}
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+
+@using (Html.BeginForm("GenerateBarCode", "Products", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h3>Generate Bar Code</h3>
+            
+            <br /><br />
+            <input type="submit" Class="btn btn-primary" ID="btnGenerate" value="Generate a new Barcode" />
+            <hr />
+
+            @if (ViewBag.BarcodeImage != null)
+            {
+                <img src="@ViewBag.BarcodeImage" alt="" />
+            }
+        </div>
+
+    </div>
+}
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")

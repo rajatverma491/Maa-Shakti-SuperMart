@@ -1,0 +1,71 @@
+﻿@model KiranaMart.VIewModels.AllClassViewModel
+@{
+    ViewBag.Title = "ViewDueBills";
+}
+
+<h4>Customer Name: @Model.Customer.Name</h4>
+<h4>Contact Number: @Model.Customer.PhoneNo</h4>
+
+<input type="text" style=" margin-left:850px;" id="Search" placeholder="Search" class="form-control" />
+<div style="margin-top: 5px; margin-bottom:15px">
+    <table class="table table-responsive table-hover table-striped">
+        <tr>
+            <th>Bill Number</th>
+            <th>Bill Date</th>
+            <th>Due Date</th>
+            <th>Total Amount</th>
+            <th>Amount Due</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Billings)
+        {
+    <tr class="Search">
+        <td>
+            @item.Id
+        </td>
+        <td>
+            @item.Date.ToLongDateString()
+        </td>
+        <td>
+            @item.DueDate.ToLongDateString()
+        </td>
+        <td>
+            ₹ @(item.AmountPaid + item.AmountDue)
+        </td>
+        <td>
+            ₹ @item.AmountDue
+        </td>
+        <td>
+            @Html.ActionLink("Clear", "ClearBill", new { id = item.Id }, new { @class = "btn btn-warning btn-sm", onclick = "return confirm('Are sure wants to Clear bill?');" })
+        </td>
+    </tr>
+        }
+    </table>
+</div>
+
+@section scripts{
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            function Contains(text_one, text_two) {
+                if (text_one.indexOf(text_two) != -1)
+                    return true;
+            }
+            $("#Search").keyup(function () {
+                var searchText = $("#Search").val().toLowerCase();
+                $(".Search").each(function () {
+                    if (!Contains($(this).text().toLowerCase(), searchText)) {
+                        $(this).hide();
+                    }
+                    else {
+                        $(this).show();
+                    }
+                });
+            });
+        });
+    </script>
+
+
+}

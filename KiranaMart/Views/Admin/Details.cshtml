@@ -1,0 +1,99 @@
+﻿@model KiranaMart.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+    <p>
+        @Html.ActionLink("+ Add With Barcode", "Create", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+        @Html.ActionLink("+ Add Without Barcode", "CreateWithout", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+        @Html.ActionLink("Profit", "ProfitandLoss", "Products", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+        @Html.ActionLink("Star Customer", "StarCustomer", "Billings", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+        @Html.ActionLink("Galla", "Galla", "Billings", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+        @Html.ActionLink("Enter Cost Price", "MProduct", "Products", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+
+    </p>
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BarCodeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BarCodeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Unit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Unit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Brand)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Brand)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CostPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CostPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MRP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MRP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpiryDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpiryDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

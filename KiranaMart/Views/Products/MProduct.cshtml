@@ -1,0 +1,85 @@
+﻿@model IEnumerable<KiranaMart.Models.Product>
+
+@{
+    ViewBag.Title = "MProduct";
+}
+
+<h3>Enter Cost Price</h3>
+
+<p>
+    @Html.ActionLink("+ Add With Barcode", "Create","Admin", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+    @Html.ActionLink("+ Add Without Barcode", "CreateWithout","Admin", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+    @Html.ActionLink("Profit", "ProfitandLoss", "Products", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+    @Html.ActionLink("Star Customer", "StarCustomer", "Billings", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+    @Html.ActionLink("Galla", "Galla", "Billings", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+    @Html.ActionLink("Enter Cost Price", "MProduct", "Products", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BarCodeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Unit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Brand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CostPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MRP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpiryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BarCodeId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Brand)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CostPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MRP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpiryDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.ActionLink("Enter Cost Price", "Edit","Admin", new { id=item.Id }, new { @class = " btn btn-warning" }) 
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id },new { @class = " btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

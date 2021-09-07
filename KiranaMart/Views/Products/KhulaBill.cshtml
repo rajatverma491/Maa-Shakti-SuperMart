@@ -1,0 +1,149 @@
+﻿@model KiranaMart.VIewModels.AllClassViewModel
+@{
+    ViewBag.Title = "khulaBill";
+}
+<h3>Add Poducts To Bill</h3>
+<h4 style="color:red">@TempData["msg"]  </h4>
+<div class="container">
+    <div class="form-group">
+        <div class="input-group">
+
+            @Html.ActionLink("Make Bill", "MakeBill", null, new { @class = "btn btn-info" })
+
+            <input type="text" style=" margin-left:850px;" id="Search" placeholder="Search" class="form-control" />
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="ModalPopUp" role="dialog">
+    <div class="modal-dialog err-pop" style="">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="DivClose" type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" style="text-align:center;">
+                Put Your Html Element Here
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Brand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.MRP)
+        </th>
+        <th>
+            @Html.DisplayName("Quantity Remainig")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Quantity)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Products)
+    {
+        <tr class="Search">
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MRP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity, new { id = "qtyRem" })
+            </td>
+            <td>
+                @using (Html.BeginForm("AddToBill", "Products"))
+                {
+                    @Html.TextBox("Quantity", null, new { @class = "input-xlagre", required = "required", id = "quantity", @Style = "width:70px;" })
+                    @Html.TextBox("Unit", item.Unit, new { @Style = "width:70px; margin-left:10px; border: none " })
+                    @Html.TextBox("id", item.Id, new { @class = "hidden" })
+                    
+                    bool flag = false;
+                    foreach (var item1 in Model.TempProducts)
+                    {
+                        if (item.BarCodeId == item1.BarCodeId)
+                        {
+                            flag = true;
+                        }
+                    }
+                    if (!flag)
+                    {
+                        <input type="submit" value="Add to Bill" class="btn btn-default" style="float:right;" />
+                    }
+                    else
+                    {
+                        <input type="submit" value="Added to Bill" class="btn btn-success" style="float:right;" />
+
+                    }
+                }
+            </td>
+
+        </tr>
+
+
+    }
+
+
+
+</table>
+@if (ViewBag.Msg != null)
+{
+    <script type="text/javascript">
+            window.onload = function() {
+                alert("@ViewBag.Msg");
+        };
+    </script>
+
+}
+
+
+@section scripts{
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            function Contains(text_one, text_two) {
+                if (text_one.indexOf(text_two) != -1)
+                    return true;
+            }
+            $("#Search").keyup(function () {
+                var searchText = $("#Search").val().toLowerCase();
+                $(".Search").each(function () {
+                    if (!Contains($(this).text().toLowerCase(), searchText)) {
+                        $(this).hide();
+                    }
+                    else {
+                        $(this).show();
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
+
+}

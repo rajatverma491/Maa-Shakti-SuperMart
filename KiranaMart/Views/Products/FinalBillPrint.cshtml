@@ -1,0 +1,200 @@
+﻿@model KiranaMart.VIewModels.AllClassViewModel
+@{
+    ViewBag.Title = "FinalBIll";
+}
+<head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <style>
+        .invoice-title h2, .invoice-title h3 {
+            display: inline-block;
+        }
+
+        .table > tbody > tr > .no-line {
+            border-top: none;
+        }
+
+        .table > thead > tr > .no-line {
+            border-bottom: none;
+        }
+
+        .table > tbody > tr > .thick-line {
+            border-top: 2px solid;
+        }
+    </style>
+
+
+</head>
+
+<!------ Include the above in your HEAD tag ---------->
+<header>
+    <center>
+
+        <h1 style="font-weight:bold";>
+            <img src="~/Images/Capture2.PNG" />
+            
+        </h1>
+        <h2 style="font-weight:bold">
+            <img src="~/Images/whatsapp.PNG" />9926597466 | amitgoud7466@gmail.com<br />Address-Bus Stand Depalpur,Indore
+        </h2>
+    </center>
+
+</header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="invoice-title">
+                <h2 style=" font-weight:bold" class="pull-right">Bill No.  # @Model.Billing.Id </h2><br />
+                @*<h6 style=" font-weight:bold">GSTIN: 23DARPP7677G1ZZ</h6>*@
+            </div>
+           
+            <div class="row">
+                <div class="col-xs-6">
+                    <address>
+                        <strong style="font-size:xx-large">Cust Name: @Model.Customer.Name</strong><br>
+                        <strong style="font-size:xx-large">Mobile: @Model.Customer.PhoneNo</strong><br>
+                    </address>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <address style="font-size:xx-large">
+                        <strong style="font-size:xx-large">Order Date:</strong><br>
+                        @Model.Billing.Date.ToLongDateString()<br><br>
+                    </address>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <td><strong style="font-size:xx-large">S.No.</strong></td>
+                                    <td><strong style="font-size:xx-large">Item</strong></td>
+                                    <td class="text-center"><strong style="font-size:xx-large">Quantity</strong></td>
+                                    <td class="text-center"><strong style="font-size:xx-large">MRP</strong></td>
+                                    <td class="text-center"><strong style="font-size:xx-large">Our Rate</strong></td>
+                                    <td class="text-right"><strong style="font-size:xx-large">Amount</strong></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @{
+                                    double totmrp = 0;
+                                    double mrp = 0;
+                                    double totSum = 0;
+                                    double sum = 0;
+                                    int i = 1;
+                                    foreach (var item in Model.SellingHistories)
+                                    {
+                                        <tr>
+                                            @foreach (var item1 in Model.Products)
+                                            {
+                                                if (item1.Id == item.ProductId)
+
+                                                {
+                                                    <td style="font-size:xx-large">@i</td>
+                                                    <td style="font-size:xx-large">@item1.ProductName </td>
+                                                    <td style="font-size:xx-large" class="text-center">@item.Quantity  @item1.Unit</td>
+                                                    <td style="font-size:xx-large" class="text-center">@item1.MRP</td>
+                                                    <td style="font-size:xx-large" class="text-center">@item1.Price</td>
+
+                                                    <td style="font-size:xx-large" class="text-right">
+                                                        @{
+
+                                                            //for (int i = 0; i < item.Quantity; i++)
+                                                            //{
+                                                            //    sum = sum + item1.Price;
+                                                            //}
+                                                            sum = item.Quantity * item1.Price;
+                                                            mrp = item.Quantity * item1.MRP;
+                                                        }@sum
+                                                    </td>
+                                                }
+                                            }
+                                        </tr>
+                                        totSum = totSum + sum;
+                                        sum = 0;
+                                        totmrp = totmrp + mrp;
+                                        i = i + 1;
+                                    }
+                                }
+
+
+                                <tr>
+                                    <td class="thick-line"></td>
+                                    <td class="thick-line"></td>
+                                    <td class="thick-line"></td>
+                                    <td class="thick-line"></td>
+                                    <td class="thick-line text-center"><strong style="font-size:xx-large">Total MRP</strong></td>
+                                    <td style="font-size:xx-large" class="thick-line text-right">₹ @totmrp</td>
+                                </tr>
+                                <tr>
+                                    <td class="no-line"></td>
+                                    <td class="no-line"></td>
+                                    <td class="no-line"></td>
+                                    <td class="no-line"></td>
+                                    <td class="no-line text-center"><strong style="font-size:xx-large">Total Amount</strong></td>
+                                    <td style="font-size:xx-large" class="no-line text-right">₹ @totSum</td>
+                                </tr>
+                                <tr>
+                                    <td class="no-line"></td>
+                                    <td class="no-line"></td>
+                                    <td class="no-line"></td>
+                                    <td class="no-line"></td>
+                                    <td class="no-line text-center"><strong style="font-size:xx-large">You Save</strong></td>
+                                    <td style="font-size:xx-large" class="no-line text-right">₹ @(totmrp - totSum)</td>
+                                </tr>
+                                <tr>
+                                    <td class="no-line"></td>
+                                    <td class="no-line"></td>
+                                    <td class="no-line"></td>
+                                    <td class="no-line"></td>
+                                    <td class="no-line text-center"><strong style="font-size:xx-large">Amount Paid</strong></td>
+                                    <td style="font-size:xx-large" class="no-line text-right">₹ @Model.Billing.AmountPaid</td>
+                                </tr>
+                                <tr>
+                                    <td class="no-line"></td>
+                                    <td class="no-line"></td>
+                                    <td class="no-line"></td>
+                                    <td class="no-line"></td>
+                                    <td class="no-line text-center"><strong style="font-size:xx-large">Amount Due</strong></td>
+                                    <td style="font-size:xx-large" class="no-line text-right">₹ @Model.Billing.AmountDue</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <br />
+        <br />
+        <br />
+        <p style="float: right;">
+            <strong style="font-size:x-large">
+                Authorized Signature
+            </strong>
+        </p>
+
+    </div>
+    <br />
+    <br />
+    <footer>
+        <center>
+            <h2>
+                *No Return*      * Exchange Within 7 Days*
+            </h2>
+
+        </center>
+
+    </footer>
+</div>
+

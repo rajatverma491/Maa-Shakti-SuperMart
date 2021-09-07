@@ -1,0 +1,128 @@
+﻿@model IEnumerable<KiranaMart.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>Products List</h3>
+
+<div class="container">
+    <div class="form-group">
+        <div class="input-group">
+
+
+
+            @Html.ActionLink("+ Add Without Barcode", "Create", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+            @Html.ActionLink("+ Add With Barcode", "CreatewithBarcode", null, new { @class = "btn btn-warning", @style = "margin-top:20px;margin-left:40px;" })
+            @Html.ActionLink("Make Bill", "MakeBill", null, new { @class = "btn btn-info", @style = "margin-top:20px;margin-left:40px;" })
+
+            <input type="text" style=" margin-left:850px;" id="Search" placeholder="Search" class="form-control" />
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BarCodeId)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MRP)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.CostPrice)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.ExpiryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Unit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Brand)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="Search">
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BarCodeId)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MRP)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.CostPrice)
+                </td>*@
+        <td>
+            @item.ExpiryDate.ToLongDateString()
+        </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Unit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-xs" })
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-xs" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id },new { @class = "btn btn-danger btn-xs" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section scripts{
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            function Contains(text_one, text_two) {
+                if (text_one.indexOf(text_two) != -1)
+                    return true;
+            }
+            $("#Search").keyup(function () {
+                var searchText = $("#Search").val().toLowerCase();
+                $(".Search").each(function () {
+                    if (!Contains($(this).text().toLowerCase(), searchText)) {
+                        $(this).hide();
+                    }
+                    else {
+                        $(this).show();
+                    }
+                });
+            });
+        });
+    </script>
+   
+
+}

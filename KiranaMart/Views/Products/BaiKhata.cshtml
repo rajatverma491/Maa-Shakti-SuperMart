@@ -1,0 +1,41 @@
+﻿@model IEnumerable<KiranaMart.VIewModels.ProfitLossViewModel>
+@{
+    ViewBag.Title = "BaiKhata";
+}
+
+    <p>
+        @Html.ActionLink("+ Add With Barcode", "Create","Admin", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+        @Html.ActionLink("+ Add Without Barcode", "CreateWithout","Admin", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+        @Html.ActionLink("Profit", "ProfitandLoss", "Products", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+        @Html.ActionLink("Star Customer", "StarCustomer", "Billings", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+        @Html.ActionLink("Galla", "Galla", "Billings", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+        @Html.ActionLink("Enter Cost Price", "MProduct", "Products", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+
+    </p>
+<h4>Profit Loss</h4>
+
+<div style="margin-top: 5px; margin-bottom:15px">
+    <table class="table table-responsive table-hover table-striped">
+        <tr>
+            <th>Date</th>
+            <th>Profit/Loss</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.BillDate.ToLongDateString()
+                </td>
+                <td>
+                    ₹ @item.TotalProfit
+                </td>
+                
+            </tr>
+        }
+            <tr>
+                <td><strong>TotalProfit</strong></td>
+                <td><strong>₹ @ViewBag.total</strong></td>
+            </tr>
+        
+    </table>
+</div>

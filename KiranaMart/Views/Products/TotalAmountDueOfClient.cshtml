@@ -1,0 +1,83 @@
+﻿@model KiranaMart.VIewModels.AllClassViewModel
+@{
+    ViewBag.Title = "TotalAmountDueOfClient";
+}
+
+<h3>Amount Due Of Customers</h3>
+<div class="container">
+    <div class="form-group">
+        <div class="input-group">
+            <input type="text" style=" margin-left:850px;" id="Search" placeholder="Search" class="form-control" />
+        </div>
+    </div>
+
+</div>
+
+<div style="margin-top: 5px; margin-bottom:15px">
+    <table class="table table-responsive table-hover table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>Amount Due</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Customers)
+        {
+            double totAmount = 0;
+            foreach (var item1 in Model.Billings)
+            {
+                if (item.Id == item1.CustomerId)
+                {
+                    if (item1.AmountDue > 0)
+                    {
+                        totAmount = totAmount + item1.AmountDue;
+                    }
+                }
+            }
+            if (totAmount > 0)
+            {
+                <tr class="Search">
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.PhoneNo
+                    </td>
+                    <td>
+                        ₹ @totAmount
+                    </td>
+                    <td>
+                        @Html.ActionLink("View Due Bills", "ViewDueBills", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                    </td>
+                </tr>
+            }
+        }
+
+    </table>
+</div>
+
+@section scripts{
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            function Contains(text_one, text_two) {
+                if (text_one.indexOf(text_two) != -1)
+                    return true;
+            }
+            $("#Search").keyup(function () {
+                var searchText = $("#Search").val().toLowerCase();
+                $(".Search").each(function () {
+                    if (!Contains($(this).text().toLowerCase(), searchText)) {
+                        $(this).hide();
+                    }
+                    else {
+                        $(this).show();
+                    }
+                 });
+            });
+        });
+    </script>
+
+}

@@ -1,0 +1,38 @@
+﻿@model KiranaMart.VIewModels.AllClassViewModel
+@{
+    ViewBag.Title = "ViewProducts";
+}
+    <table class="table">
+        <tr>
+            <th>Item Name</th>
+            <th>Brand</th>
+            <th>Price</th>
+            <th>ExpiryDate</th>
+            <th>Unit</th>
+            <th>Quantity</th>
+        </tr>
+        @foreach (var item in Model.SellingHistories)
+        {
+            <tr>
+                <td>
+                    @item.Product.ProductName
+                </td>
+                <td>
+                    @item.Product.Brand
+                </td>
+                <td>
+                    @item.SellingPrice
+                </td>
+                <td>
+                    @item.Product.ExpiryDate.ToLongDateString()
+                </td>
+                <td>
+                    @item.Product.Unit
+                </td>
+                <td>
+                    @item.Quantity
+                </td>
+            </tr>
+        }
+
+</table>

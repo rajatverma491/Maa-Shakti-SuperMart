@@ -1,0 +1,133 @@
+﻿@model KiranaMart.Models.Product
+
+@{
+    ViewBag.Title = "CreateWithout";
+}
+
+<h2>Create Product Without Bar Code</h2>
+
+<p>
+    @Html.ActionLink("+ Add With Barcode", "Create", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+    @Html.ActionLink("+ Add Without Barcode", "CreateWithout", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+    @Html.ActionLink("Profit", "ProfitandLoss", "Products", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+    @Html.ActionLink("Star Customer", "StarCustomer", "Billings", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+    @Html.ActionLink("Galla", "Galla", "Billings", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+    @Html.ActionLink("Enter Cost Price", "MProduct", "Products", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+
+</p>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.BarCodeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BarCodeId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BarCodeId, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+    <div class="form-group">
+        @Html.LabelFor(model => model.Unit, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Unit,
+                  new List<SelectListItem> {
+                        new SelectListItem { Value = "N" , Text = "N" },
+                        new SelectListItem { Value = "Kg" , Text = "Kg" },
+                        new SelectListItem { Value = "g" , Text = "g" },
+                        new SelectListItem { Value = "mg" , Text = "mg" },
+                        new SelectListItem { Value = "litre" , Text = "litre" },
+                        new SelectListItem { Value = "ml" , Text = "ml" }
+                    },
+                  new { @class = "myselect" })
+            @Html.ValidationMessageFor(model => model.Unit, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Brand, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Brand, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" ,id="sp" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CostPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CostPrice, new { htmlAttributes = new { @class = "form-control" ,id="cp" } })
+                @Html.ValidationMessageFor(model => model.CostPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MRP, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MRP, new { htmlAttributes = new { @class = "form-control",id="mrp" } })
+                @Html.ValidationMessageFor(model => model.MRP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExpiryDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" onclick="return Validate()" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section scripts{
+<script type="text/javascript">
+    function Validate() {
+        let sp = parseInt(document.getElementById("sp").value, 10);
+        let cp = parseInt(document.getElementById("cp").value, 10);
+        let mrp = parseInt(document.getElementById("mrp").value, 10);
+        if ((sp > 0) && (cp > 0) && (sp > cp) && (mrp > 0) && (mrp > sp) ){
+            return true;
+        }
+        else {
+            confirm("Invalid Price\n *Selling Price should be greater than Cost Price\n * MRP, Selling Price,Cost Price can not be zero   ");
+            return false;
+        }
+
+    }
+</script>
+    }

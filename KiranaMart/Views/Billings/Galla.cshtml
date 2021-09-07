@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "Galla";
+}
+
+    <p>
+        @Html.ActionLink("+ Add With Barcode", "Create","Admin", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+        @Html.ActionLink("+ Add Without Barcode", "CreateWithout","Admin", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+        @Html.ActionLink("Profit", "ProfitandLoss", "Products", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+        @Html.ActionLink("Star Customer", "StarCustomer", "Billings", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+        @Html.ActionLink("Galla", "Galla", "Billings", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+        @Html.ActionLink("Enter Cost Price", "MProduct", "Products", null, new { @class = " btn btn-primary", @style = "margin-top:20px;" })
+
+    </p>
+<h3>Galla</h3>
+
+
+@using (Html.BeginForm("GallaDekho", "Billings"))
+{
+
+
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.Label("Start date", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("StartDate", DateTime.Now.ToShortDateString(), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("End date", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("EndDate", DateTime.Now.ToShortDateString(), new { @class = "form-control" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+@*<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />*@
+
+@section scripts{
+
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+
+    <script>
+
+        $(function () {
+            $("#StartDate").datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-10:+10",
+                //minDate: new Date(),
+                //maxDate: new Date(2018, 0, 1),
+                showOn: "both",
+                buttonText: "<i class='fa fa-calendar'></i>"
+            });
+        });
+
+        $(function () {
+            $("#EndDate").datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-10:+10",
+                //minDate: new Date(),
+                //maxDate: new Date(2018, 0, 1),
+                showOn: "both",
+                buttonText: "<i class='fa fa-calendar'></i>"
+            });
+        });
+    </script>
+}
